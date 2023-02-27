@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginApiService } from 'src/app/services/login-api.service';
 
 @Component({
   selector: 'app-user-login',
@@ -26,6 +27,10 @@ export class UserLoginComponent implements OnInit{
     }
   }
 
+  constructor(private loginService: LoginApiService){
+
+  }
+
   onSignup(){
     this.signupUsers.push(this.signupObj);
     localStorage.setItem('SignUp-Users',JSON.stringify(this.signupUsers));
@@ -38,17 +43,25 @@ export class UserLoginComponent implements OnInit{
 
   onLogin(){
     debugger
-    // alert("Ok!");
-   const isUserExist = this.signupUsers.find(data=>
-      // console.log(data);
-      data.email == this.loginObj.email && data.password == this.loginObj.password
-    );
 
-    if(isUserExist != undefined){
-      alert("User login Successfully!!");
-    }else{
-      alert("Wrong credentitals!");
-    }
+    this.loginService.onLogin(this.loginObj).subscribe((res)=>{
+      console.log('res',res);
+      localStorage.setItem('access_token',res.access_token);
+    })
+
+
+
+    // alert("Ok!");
+  //  const isUserExist = this.signupUsers.find(data=>
+  //     // console.log(data);
+  //     data.email == this.loginObj.email && data.password == this.loginObj.password
+  //   );
+
+  //   if(isUserExist != undefined){
+  //     alert("User login Successfully!!");
+  //   }else{
+  //     alert("Wrong credentitals!");
+  //   }
   }
 
 }
