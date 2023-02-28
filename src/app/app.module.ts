@@ -5,12 +5,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserLoginComponent } from './user/user-login/user-login.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { CustomInterceptor } from './custom.interceptor';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +22,13 @@ import { HttpClientModule } from '@angular/common/http'
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CustomInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

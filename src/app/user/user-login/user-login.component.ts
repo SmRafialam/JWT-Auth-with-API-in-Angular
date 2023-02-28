@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginApiService } from 'src/app/services/login-api.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class UserLoginComponent implements OnInit{
     }
   }
 
-  constructor(private loginService: LoginApiService){
+  constructor(private loginService: LoginApiService,private router: Router){
 
   }
 
@@ -42,11 +43,11 @@ export class UserLoginComponent implements OnInit{
   }
 
   onLogin(){
-    debugger
-
+    //debugger
     this.loginService.onLogin(this.loginObj).subscribe((res)=>{
       console.log('res',res);
       localStorage.setItem('access_token',res.access_token);
+      this.router.navigateByUrl('/home');
     })
 
 
