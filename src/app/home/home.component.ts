@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit{
     this.accountService.getProducts().subscribe((data:any)=>{
       //debugger
       console.log(data);
-      this.userLists = data;
+      // this.userLists = data.result;
     })
   }
 

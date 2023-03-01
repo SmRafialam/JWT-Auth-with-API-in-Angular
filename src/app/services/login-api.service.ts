@@ -20,7 +20,7 @@ export class LoginApiService {
    }
 
    getProducts(): Observable<any>{
-    debugger
+    //debugger
     const url = 'https://pim-nest.vercel.app/api/v1/product';
     return this.http.get(url);
    }
